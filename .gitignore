@@ -21,3 +21,7 @@ id_ed25519*
 
 # Logs
 *.log
+
+# temp file
+.deploy.lock
+.rollback-*.yaml

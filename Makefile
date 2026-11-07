@@ -1,7 +1,7 @@
 
 COMPOSE = sudo docker compose
 
-.PHONY: build up down restart logs ps deploy config deploy-api deploy-web
+.PHONY: build up down restart logs ps config deploy deploy-api deploy-web rollback-api rollback-web
 
 build:
 	$(COMPOSE) build
@@ -25,10 +25,18 @@ config:
 	$(COMPOSE) config
 
 deploy:
-	$(COMPOSE) up -d --build
+	bash scripts/deploy.sh api
+	bash scripts/deploy.sh web
 
 deploy-api:
-	$(COMPOSE) up -d --no-deps --build api
+	bash scripts/deploy.sh api
 
 deploy-web:
-	$(COMPOSE) up -d --no-deps --build web
+	bash scripts/deploy.sh web
+
+rollback-api:
+	bash scripts/rollback.sh api
+
+rollback-web:
+	bash scripts/rollback.sh web
+
