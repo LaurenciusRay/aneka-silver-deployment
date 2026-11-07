@@ -1,0 +1,23 @@
+# Production environment
+.env
+.env.*
+!.env.example
+
+# Secrets
+*.pem
+*.key
+id_rsa
+id_ed25519*
+
+# Backups
+*.dump
+*.sql
+*.tar.gz
+
+# Editor
+.vscode/
+.idea/
+.DS_Store
+
+# Logs
+*.log

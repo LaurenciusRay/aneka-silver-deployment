@@ -1,0 +1,44 @@
+
+name: aneka-silver
+
+services:
+  api:
+    build:
+      context: ../aneka-silver-api-git
+    image: aneka-silver-api:local
+    container_name: aneka-api
+    restart: unless-stopped
+    network_mode: host
+
+    env_file:
+      - .env.api
+
+    environment:
+      APP_HOST: "127.0.0.1"
+      APP_PORT: "18080"
+      DB_HOST: "127.0.0.1"
+      DB_PORT: "5432"
+      PRODUCT_IMAGE_DIR: "/app/images/product"
+
+    volumes:
+      - ../aneka-silver-api/images/product:/app/images/product
+
+    security_opt:
+      - no-new-privileges:true
+
+  web:
+    build:
+      context: ../aneka-silver-web-git
+      args:
+        VITE_API_BASE_URL: ${VITE_API_BASE_URL}
+
+    image: aneka-silver-web:local
+    container_name: aneka-web
+    restart: unless-stopped
+
+    ports:
+      - "127.0.0.1:18081:80"
+
+    security_opt:
+      - no-new-privileges:true
+
